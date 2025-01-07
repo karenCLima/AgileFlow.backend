@@ -48,7 +48,7 @@ public class Project {
 	private Status status;
 	
 	@ManyToMany
-	private List<User> members;
+	private List<User> teamMembers;
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Task> tasks;
