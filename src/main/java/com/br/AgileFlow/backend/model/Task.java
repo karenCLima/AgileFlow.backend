@@ -43,7 +43,7 @@ public class Task {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User responsibleMember;
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "project_id")

@@ -35,7 +35,7 @@ public class TaskResponse {
 	private Status status;
 	
 	
-	private User responsibleMember;
+	private User user;
 	
 	
 	private Project project;
