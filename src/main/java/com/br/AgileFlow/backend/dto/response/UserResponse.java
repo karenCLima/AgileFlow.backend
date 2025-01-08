@@ -20,5 +20,7 @@ public class UserResponse {
 	private Role role;
 	
 	private String position;
+	
+	private Boolean active;
 
 }

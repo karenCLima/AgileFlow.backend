@@ -2,6 +2,8 @@ package com.br.AgileFlow.backend.model;
 
 import java.util.List;
 
+import org.hibernate.annotations.Where;
+
 import com.br.AgileFlow.backend.model.enums.Role;
 
 import jakarta.persistence.CascadeType;
@@ -43,4 +45,6 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Task> tasks;
+	
+	private Boolean active;
 }
