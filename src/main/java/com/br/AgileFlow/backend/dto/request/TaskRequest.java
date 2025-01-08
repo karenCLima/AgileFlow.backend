@@ -32,7 +32,7 @@ public class TaskRequest {
 	private Status status;
 	
 	@NotBlank(message = "O usuário é obrigatório")
-	private User responsibleMember;
+	private User user;
 	
 	@NotBlank(message = "O numero do projeto é obrigatório")
 	private UUID projectNumber;
