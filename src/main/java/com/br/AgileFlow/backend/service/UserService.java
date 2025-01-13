@@ -39,8 +39,14 @@ public class UserService {
 		return mapper.toResponse(repository.save(user));
 	}
 	
-	public List<UserResponse> getAllUsers(){
+	public List<UserResponse> getActiveAllUsers(){
 		List<User> users = repository.findAllActiveUsers();
+		
+		return mapper.toResponseList(users);
+	}
+	
+	public List<UserResponse> getAllUsers(){
+		List<User> users = repository.findAll();
 		
 		return mapper.toResponseList(users);
 	}
