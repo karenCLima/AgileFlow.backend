@@ -1,6 +1,6 @@
 package com.br.AgileFlow.backend.util.mapper;
 
-import java.util.List;import java.util.stream.Collector;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
