@@ -36,15 +36,15 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 	
-	@Enumerated(EnumType.STRING) // Armazenar o valor como texto no banco
-    @Column(nullable = false)
-	private Role role;
 	
 	@Column(nullable = false)
 	private String position;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Task> tasks;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectMember> projects;
 	
 	private Boolean active;
 }

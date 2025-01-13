@@ -3,7 +3,7 @@ package com.br.AgileFlow.backend.dto.request;
 import java.util.Date;
 import java.util.List;
 
-import com.br.AgileFlow.backend.model.User;
+import com.br.AgileFlow.backend.model.ProjectMember;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,6 +27,6 @@ public class ProjectRequest {
 	private Date closingDate;
 	
 	
-	private List<User> teamMembers;
+	private List<ProjectMember> members;
 
 }

@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.br.AgileFlow.backend.model.User;
+import com.br.AgileFlow.backend.model.ProjectMember;
 import com.br.AgileFlow.backend.model.enums.Status;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +40,6 @@ public class ProjectResponse {
 	private Status status;
 	
 	
-	private List<User> teamMembers;
+	private List<ProjectMember> members;
 
 }

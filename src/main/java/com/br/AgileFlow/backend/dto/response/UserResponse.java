@@ -17,8 +17,6 @@ public class UserResponse {
 	
 	private String email;
 	
-	private Role role;
-	
 	private String position;
 	
 	private Boolean active;

@@ -25,8 +25,6 @@ public class UserRequest {
 	@Size(min = 4, message = "A senha deve conter no mínimo 4 caracteres.")
 	private String password;
 	
-	@NotBlank(message = "O role é obrigatório")
-	private Role role;
 	
 	@NotBlank(message = "O cargo é obrigatório")
 	@Size(min = 3, message = "O cargo deve conter no mínimo 3 caracteres.")
