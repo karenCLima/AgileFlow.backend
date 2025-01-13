@@ -33,6 +33,7 @@ public class UserService {
 		
 		//TODO: Acrescentar password enconder que deve estar no Security config
 		
+		
 		user.setActive(true);
 		
 		return mapper.toResponse(repository.save(user));
@@ -85,6 +86,15 @@ public class UserService {
 		
 		return mapper.toResponse(user);
 	}
+	
+	public UserResponse getUserByUsername(String username) throws UserPrincipalNotFoundException {
+		User user = repository.findActiveUserByUsername(username);
+		
+		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		
+		return mapper.toResponse(user);
+	}
+	
 	
 
 }

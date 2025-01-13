@@ -21,6 +21,10 @@ public class UserRequest {
 	@Email
 	private String email;
 	
+	@NotBlank(message = "O username é obrigatória")
+	@Size(max = 20 , message = "O username deve conter no máximo 20 caracteres.")
+	private String username;
+	
 	@NotBlank(message = "A senha é obrigatória")
 	@Size(min = 4, message = "A senha deve conter no mínimo 4 caracteres.")
 	private String password;
