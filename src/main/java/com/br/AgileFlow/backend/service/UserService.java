@@ -4,6 +4,7 @@ import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.AgileFlow.backend.controller.exceptions.PasswordValidationError;
@@ -23,6 +24,9 @@ public class UserService {
 	@Autowired
 	UserMapper mapper;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	public UserResponse createUser(UserRequest userRequest) throws PasswordValidationError {
 		User user = mapper.toEntity(userRequest);
 		
@@ -31,7 +35,8 @@ public class UserService {
 					+ " \n -1 Letra minuscula, \n -1 caractere especial, \n -tamanho mínimo de 8 caracteres");
 		}
 		
-		//TODO: Acrescentar password enconder que deve estar no Security config
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
 		
 		
 		user.setActive(true);
@@ -59,7 +64,9 @@ public class UserService {
 					+ " \n -1 Letra minuscula, \n -1 caractere especial, \n -tamanho mínimo de 8 caracteres");
 		}
 		
-		//TODO: Acrescentar password enconder que deve estar no Security config
+	
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
 		
 		user.setActive(true);
 		user.setUser_id(user_id);
