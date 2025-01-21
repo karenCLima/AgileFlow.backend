@@ -40,7 +40,7 @@ public class AuthenticationController {
 	
 	 @PostMapping("/login")
 	    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-		 Authentication authentication = refreshTokenAuthProvider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword()));
+		 Authentication authentication = daoAuthenticationProvider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword()));
 		 return ResponseEntity.ok(tokenGenerator.createToken(authentication));
 	 }
 	 

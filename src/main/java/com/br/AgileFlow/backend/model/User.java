@@ -2,15 +2,9 @@ package com.br.AgileFlow.backend.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.Where;
-
-import com.br.AgileFlow.backend.model.enums.Role;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

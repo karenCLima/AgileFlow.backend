@@ -4,6 +4,7 @@ import java.net.URI;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.AgileFlow.backend.controller.exceptions.PasswordValidationError;
 import com.br.AgileFlow.backend.dto.request.UserRequest;
+import com.br.AgileFlow.backend.dto.request.UserUpdateRequest;
 import com.br.AgileFlow.backend.dto.response.UserResponse;
 import com.br.AgileFlow.backend.service.UserService;
 
@@ -36,10 +38,21 @@ public class UserController {
 	
 	}
 	
+	
+	@PutMapping("/password/{user_id}")
+	public ResponseEntity<UserResponse> updatePassword(@RequestBody String password, @PathVariable Long user_id) throws UserPrincipalNotFoundException, PasswordValidationError{
+		return ResponseEntity.ok(userService.updatePassword(password, user_id));
+	}
+	
+	@PutMapping("/change/username/{user_id}")
+	public ResponseEntity<UserResponse> updateUsername(@RequestBody String username, @PathVariable Long user_id) throws UserPrincipalNotFoundException, BadRequestException{
+		return ResponseEntity.ok(userService.updateUsername(username, user_id));
+	}
+	
 	@PutMapping("/{user_id}")
 	public ResponseEntity<UserResponse> updateUser(
-			@RequestBody @Valid UserRequest userRequest, 
-			@PathVariable Long user_id) throws PasswordValidationError{
+			@RequestBody @Valid UserUpdateRequest userRequest, 
+			@PathVariable Long user_id) throws UserPrincipalNotFoundException{
 		return ResponseEntity.ok(userService.updateUser(userRequest, user_id));
 	}
 	

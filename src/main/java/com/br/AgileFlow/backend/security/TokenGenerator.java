@@ -36,7 +36,7 @@ public class TokenGenerator {
 		JwtClaimsSet claimsSet = JwtClaimsSet.builder()
 				.issuer("AgileFlow")
 				.issuedAt(now)
-				.expiresAt(now.plus(5, ChronoUnit.MINUTES))
+				.expiresAt(now.plus(25, ChronoUnit.MINUTES))
 				.subject(userDetailsImpl.getUsername())
 				.build();
 		return accessTokenEncoder.encode(JwtEncoderParameters.from(claimsSet))
@@ -51,7 +51,7 @@ public class TokenGenerator {
 		JwtClaimsSet claimsSet = JwtClaimsSet.builder()
 						.issuer("AgileFlow")
 						.issuedAt(now)
-						.expiresAt(now.plus(30, ChronoUnit.DAYS))
+						.expiresAt(now.plus(15, ChronoUnit.DAYS))
 						.subject(userDetailsImpl.getUsername())
 						.build();
 		return refreshTokEncoder.encode(JwtEncoderParameters.from(claimsSet))

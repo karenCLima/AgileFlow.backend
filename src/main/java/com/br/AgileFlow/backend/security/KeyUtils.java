@@ -51,6 +51,7 @@ public class KeyUtils {
 		File privateKeyFile = new File(privateKeyPath);
 		
 		if(publicKeyFile.exists() && privateKeyFile.exists()) {
+			log.info("loading keys from file: {}, {}", publicKeyPath, privateKeyPath);
 			try {
 				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				
@@ -79,6 +80,7 @@ public class KeyUtils {
 			directory.mkdirs();
 		}
 		try {
+			log.info("Generating new public and private keys: {}, {}", publicKeyPath, privateKeyPath);
 			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 			keyPairGenerator.initialize(2048);
 			keyPair = keyPairGenerator.generateKeyPair();
