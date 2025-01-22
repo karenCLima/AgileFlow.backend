@@ -1,6 +1,5 @@
 package com.br.AgileFlow.backend.service;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 import org.apache.coyote.BadRequestException;
@@ -9,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.AgileFlow.backend.controller.exceptions.PasswordValidationError;
+import com.br.AgileFlow.backend.controller.exceptions.UserNotFoundException;
+import com.br.AgileFlow.backend.dto.request.ParamRequest;
 import com.br.AgileFlow.backend.dto.request.UserRequest;
 import com.br.AgileFlow.backend.dto.request.UserUpdateRequest;
 import com.br.AgileFlow.backend.dto.response.UserResponse;
@@ -41,7 +42,7 @@ public class UserService {
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		
-		
+		user.setProjectOwnerCount(0);
 		user.setActive(true);
 		
 		return mapper.toResponse(repository.save(user));
@@ -59,10 +60,10 @@ public class UserService {
 		return mapper.toResponseList(users);
 	}
 	
-	public UserResponse updateUser(UserUpdateRequest userUpdateRequest, Long user_id) throws UserPrincipalNotFoundException {
+	public UserResponse updateUser(UserUpdateRequest userUpdateRequest, Long user_id) throws UserNotFoundException {
 		User user = repository.findById(user_id).get();
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
 		user.setName(userUpdateRequest.getName());
 		user.setPosition(userUpdateRequest.getPosition());
@@ -74,64 +75,64 @@ public class UserService {
 		
 	}
 	
-	public void deleteUser(Long user_id) throws UserPrincipalNotFoundException {
+	public void deleteUser(Long user_id) throws UserNotFoundException {
 		User user = repository.findById(user_id).get();
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
 		user.setActive(false);
 		
 		repository.save(user);
 	}
 	
-	public UserResponse getUserById(Long user_id) throws UserPrincipalNotFoundException {
+	public UserResponse getUserById(Long user_id) throws UserNotFoundException {
 		User user = repository.findActiveUser(user_id);
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
 		return mapper.toResponse(user);
 	}
 	
-	public UserResponse getUserByEmail(String email) throws UserPrincipalNotFoundException {
+	public UserResponse getUserByEmail(String email) throws UserNotFoundException {
 		User user = repository.findActiveUserByEmail(email);
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
 		return mapper.toResponse(user);
 	}
 	
-	public UserResponse getUserByUsername(String username) throws UserPrincipalNotFoundException {
+	public UserResponse getUserByUsername(String username) throws UserNotFoundException {
 		User user = repository.findActiveUserByUsername(username);
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
 		return mapper.toResponse(user);
 	}
 	
-	public UserResponse updatePassword(String password, Long user_id) throws UserPrincipalNotFoundException, PasswordValidationError {
+	public UserResponse updatePassword(ParamRequest password, Long user_id) throws UserNotFoundException, PasswordValidationError {
 		User user = repository.findActiveUser(user_id);
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
-		if (!Validator.passwordValidate(password)) {
+		if (!Validator.passwordValidate(password.getParameter())) {
 			throw new PasswordValidationError("Senha deve seguir o padrão:\n -1 Letra maiuscula,"
 					+ " \n -1 Letra minuscula, \n -1 caractere especial, \n -tamanho mínimo de 8 caracteres");
 		}
 		
-		String encodePassword = passwordEncoder.encode(password);
+		String encodePassword = passwordEncoder.encode(password.getParameter());
 		user.setPassword(encodePassword);
 		
 		return mapper.toResponse(repository.save(user));
 	}
 	
-	public UserResponse updateUsername(String username, Long user_id) throws UserPrincipalNotFoundException, BadRequestException {
+	public UserResponse updateUsername(ParamRequest username, Long user_id) throws UserNotFoundException, BadRequestException {
 		User user = repository.findActiveUser(user_id);
 		
-		if(user == null) throw new UserPrincipalNotFoundException("O Usuário não foi encontrado!");
+		if(user == null) throw new UserNotFoundException("O Usuário não foi encontrado!");
 		
-		if(username == null || username.isBlank() || username.isEmpty()|| username.length()>20) throw new BadRequestException("O username não pode ser branco, nulo ou ter mais de 20 caracteres!");
+		if(username.getParameter() == null || username.getParameter().isBlank() || username.getParameter().isEmpty()|| username.getParameter().length()>20) throw new BadRequestException("O username não pode ser branco, nulo ou ter mais de 20 caracteres!");
 		
-		user.setUsername(username);
+		user.setUsername(username.getParameter());
 		
 		return mapper.toResponse(repository.save(user));
 	}

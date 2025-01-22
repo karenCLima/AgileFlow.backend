@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.br.AgileFlow.backend.controller.exceptions.PasswordValidationError;
+import com.br.AgileFlow.backend.controller.exceptions.UserNotFoundException;
 
-import io.swagger.v3.oas.annotations.Hidden;
+//import io.swagger.v3.oas.annotations.Hidden;
 
 //@Hidden
 @RestControllerAdvice
@@ -40,10 +41,10 @@ public class ControllerAdvice {
          return errors;
     }
 	
-//	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-//	@ExceptionHandler(PasswordValidationError.class)
-//	public String handlerPasswordError(PasswordValidationError exception) {
-//		return exception.getDescription();
-//	}
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UserNotFoundException.class)
+	public String handlerUserNotFound(UserNotFoundException exception) {
+		return exception.getDescription();
+	}
 
 }

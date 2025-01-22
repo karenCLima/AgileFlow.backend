@@ -43,4 +43,6 @@ public class User {
     private List<ProjectMember> projects;
 	
 	private Boolean active;
+	
+	private Integer projectOwnerCount;
 }
