@@ -1,7 +1,0 @@
-ACCESS_TOKEN_PRIVATE_KEY_PATH: "access-refresh-token-keys/access-token-private.key"
-ACCESS_TOKEN_PUBLIC_KEY_PATH: "access-refresh-token-keys/access-token-public.key"
-REFRESH_TOKEN_PRIVATE_KEY_PATH: "access-refresh-token-keys/refresh-token-private.key"
-REFRESH_TOKEN_PUBLIC_KEY_PATH: "access-refresh-token-keys/refresh-token-public.key"
-POSTGRES_HOST: agileflow_w93e_user
-POSTGRES_PASSWORD: 4SsWmzgp9x5CumV1lzJBfocPuhTMtUhf
-
